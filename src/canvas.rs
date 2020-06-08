@@ -24,5 +24,65 @@ impl Canvas{
 
         let ctx: CanvasRenderingContext2d = canvas.get_context().unwrap();
 
+        let scaled_width = canvas.width() / width;
+        let scaled_height = canvas.height() / height;
+
+        Canvas {
+            canvas,
+            ctx,
+            scaled_width,
+            scaled_height,
+            width,
+            height,
+        }
     }
+
+    pub fn draw (&self, x: u32, y: u32, color: &str) {
+        assert!(x < self.width);
+        assert!(y < self.height);
+
+        self.ctx.set_fill_style_color(color);
+        let x = x * self.scaled_width;
+        let y = y * self.scaled_height;
+
+
+        self.ctx.fill_rect(
+            f64::from(x),
+            f64::from(y),
+            f64::from(self.scaled_width),
+            f64::from(self.scaled_height)
+        );
+    }
+
+
+    pub fn drawCircle(&self, x: u32, y: u32, radius: u32, color: &str) {
+        assert!(x < self.width);
+        assert!(y < self.height);
+
+        self.ctx.set_fill_style_color(color);
+        let x = x * self.scaled_width;
+        let y = y * self.scaled_height;
+
+        self.ctx.arc(
+            f64::from(x),
+            f64::from(y),
+            f64::from(20),
+            f64::from(10),
+            f64::from(90),
+            true
+        );
+
+    }
+
+    pub fn clear_all(&self) {
+        self.ctx.set_fill_style_color("white");
+        self.ctx.fill_rect(
+          0.0,
+            0.0,
+            f64::from(self.width * self.scaled_width),
+            f64::from(self.height * self.scaled_height)
+        );
+    }
+
+
 }
