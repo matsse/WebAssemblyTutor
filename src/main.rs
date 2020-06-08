@@ -15,7 +15,7 @@ fn main() {
     canvas.draw(5,5,"red");
     canvas.draw(10,10,"Orange");
     canvas.draw(15,15, "blue");
-    
+
     canvas.draw(15,12, "purple");
     stdweb::event_loop();
 }
